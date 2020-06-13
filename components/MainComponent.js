@@ -3,6 +3,7 @@ import { View, Platform } from 'react-native';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Home from './HomeComponent';
+import Contact from './ContactComponent';
 import { createDrawerNavigator, createStackNavigator } from 'react-navigation';
 
 const MenuNavigator = createStackNavigator({
