@@ -30,9 +30,9 @@ class Menu extends Component {
                         />
                 );
             };
-    
+                
             const { navigate } = this.props.navigation;
-
+                
             return(
                 <FlatList
                     data={this.state.dishes}
