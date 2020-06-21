@@ -1,7 +1,15 @@
 import React,{Component} from 'react';
 import {FlatList,ScrollView,View,Text} from 'react-native';
 import {Card, ListItem} from 'react-native-elements';
-import {LEADERS} from '../shared/leaders';  
+import {connect} from 'react-redux';
+import {baseUrl} from '../shared/baseUrl';
+
+const mapStateToProps=state => {
+
+    return {
+        leaders:state.leaders
+    }
+};
 
 function History(props){
     return(
@@ -35,7 +43,7 @@ function RenderAboutUSItem(props){
                     title={item.name}
                     subtitle={item.description}
                     hideChevron={true}
-                    leftAvatar={{source:require('./images/alberto.png')}}
+                    leftAvatar={{source:{uri:baseUrl+item.image}}}
                />
             
             );
@@ -68,12 +76,12 @@ class About extends Component{
         return(
             <ScrollView>
                     <History/>
-                    <RenderAboutUSItem leaders={this.state.leaders}/>
+                    <RenderAboutUSItem leaders={this.props.leaders.leaders}/>
             </ScrollView>
         );
     }  
 }
-export default About;
+export default connect(mapStateToProps)(About);
 /*
 Our History
 
