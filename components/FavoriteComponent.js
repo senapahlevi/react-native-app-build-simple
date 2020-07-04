@@ -44,6 +44,7 @@ class Favorites extends Component{
         else {
             return(
                 <FlatList
+                    //intinya dia ngecek list dish nah tiap dish nanti dicek apa dishId nya ini ada di favorite array ?? kalau dah nanti
                     data={this.props.dishes.dishes.filter(dish=>this.props.favorites.some(el=>el==dish.id))}
                     renderItem={renderMenuItem}
                     keyExtractor={item=>item.id.toString()}
