@@ -33,21 +33,25 @@ export const addComments = (comments) => ({
     payload: comments
 });
 
-export const postComments = (dishId,rating,author,comment)=>(dispatch)=>{
-   
-    const newComment={
-        author:author,
-        comment:comment,
-        dishId:dishId,
-        rating:rating,
+export const addComment = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+});
+
+export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+
+    const newComment = {
+        author: author,
+        comment: comment,
+        dishId: dishId,
+        rating: rating,
     };
-    newComment.date=new Date().toISOString();
-    setTimeout(()=>{
+    newComment.date = new Date().toISOString();
+
+    setTimeout(() => {
         dispatch(addComment(newComment));
-    },2000);//simulating an async server call
+    }, 2000); // Simulating an async server call
 };
-
-
 /* COMMENTS END */
 
 /* DISHES START */
@@ -167,17 +171,21 @@ export const addLeaders = (leaders) => ({
 });
 /* LEADERS END */
 
-/* Favorites Start */
-export const postFavorite = (dishId) =>(dispatch)=>{
-    //simulating a call to server post favorite as we are not implemting it in this course
-    setTimeout(()=>{
+/* FAVORITES START */
+export const postFavorite = (dishId) => (dispatch) => {
+    // Simulating a call to server to post favorite as we are not implementing it in this course
+    setTimeout(() => {
         dispatch(addFavorite(dishId));
-        },2000);    
-    };
-    
-    export const addFavorite = (dishId)=>({
-        type:ActionTypes.ADD_FAVORITE,
-        payload:dishId,
-    });
+    }, 2000);
+};
 
-    /* Favorite END*/
+export const addFavorite = (dishId) => ({
+    type: ActionTypes.ADD_FAVORITE,
+    payload: dishId,
+});
+
+export const deleteFavorite = (dishId) => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: dishId,
+});
+/* FAVORITES END */

@@ -3,14 +3,14 @@ import { View, Platform, Image, StyleSheet, ScrollView, Text } from 'react-nativ
 import { Icon } from 'react-native-elements';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
+import Reservation from './ReservationComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import Favorites from './FavoriteComponent';
 import { createDrawerNavigator, createStackNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
 import { fetchComments, fetchDishes, fetchLeaders, fetchPromos } from '../redux/ActionCreators';
-import Reservation from './ReservationComponent';
-import Favorite from './FavoriteComponent';
 
 const mapStateToProps = state => {
     return {
@@ -30,7 +30,7 @@ const MenuNavigator = createStackNavigator({
             headerLeft: <Icon name='menu' size={24}
                 color='white'
                 onPress={() => navigation.toggleDrawer()}
-                />
+            />
         }) }, 
     Dishdetail: { screen: Dishdetail }, 
 }, {
@@ -60,7 +60,7 @@ const HomeNavigator = createStackNavigator({
         headerLeft: <Icon name='menu' size={24}
             color='white'
             onPress={() => navigation.toggleDrawer()}
-            />
+        />
     })
 });
 
@@ -78,7 +78,7 @@ const ContactNavigator = createStackNavigator({
         headerLeft: <Icon name='menu' size={24}
             color='white'
             onPress={() => navigation.toggleDrawer()}
-            />
+        />
     })
 });
 
@@ -96,42 +96,43 @@ const AboutNavigator = createStackNavigator({
         headerLeft: <Icon name='menu' size={24}
             color='white'
             onPress={() => navigation.toggleDrawer()}
-            />
+        />
     })
 });
 
-const ReservationNavigator=createStackNavigator({
-    Reservation:{screen:Reservation},
-},{
-    navigationOptions:({navigation})=>({
-        headerStyle:{
-            backgroundColor:'#512DA8'
+const ReservationNavigator = createStackNavigator({
+    Reservation: { screen: Reservation },
+}, {
+    navigationOptions: ({ navigation }) => ({
+        headerStyle: {
+            backgroundColor: '#512DA8'
         },
-        headerTintColor:'#fff',
-        headerTitleStyle:{
-            color:'#fff'
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            color: '#fff'
         },
-        headerLeft:<Icon name='menu' size ={24}
+        headerLeft: <Icon name='menu' size={24}
             color='white'
-            onPress={()=>navigation.toggleDrawer()}/>
+            onPress={() => navigation.toggleDrawer()}
+        />
     })
 });
 
-const FavoritesNavigator=createStackNavigator({
-    Favorites:{screen:Favorites},
-},{
-    navigationOptions:({navigation})=>({
-        headerStyle:{
-            backgroundColor:'#512DA8'
+const FavoritesNavigator = createStackNavigator({
+    Favorites: { screen: Favorites },
+}, {
+    navigationOptions: ({ navigation }) => ({
+        headerStyle: {
+            backgroundColor: '#512DA8'
         },
-        headerTintColor:'#fff',
-        headerTitleStyle:{
-            color:'#fff'
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            color: '#fff'
         },
-        headerLeft:<Icon name='menu' size={24}
+        headerLeft: <Icon name='menu' size={24}
             color='white'
-            onPress={()=>navigation.toggleDrawer()}
-            />
+            onPress={() => navigation.toggleDrawer()}
+        />
     })
 });
 
@@ -165,7 +166,7 @@ const MainNavigator = createDrawerNavigator({
                     type='font-awesome'
                     size={24}
                     color={tintColor}
-                    />
+                />
             )
         }
     },
@@ -180,7 +181,7 @@ const MainNavigator = createDrawerNavigator({
                     type='font-awesome'
                     size={24}
                     color={tintColor}
-                    />
+                />
             )
         }    
     },
@@ -195,7 +196,7 @@ const MainNavigator = createDrawerNavigator({
                     type='font-awesome'
                     size={22} // 24 seems a bit big
                     color={tintColor}
-                    />
+                />
             )
 
         }    
@@ -211,25 +212,43 @@ const MainNavigator = createDrawerNavigator({
                     type='font-awesome'
                     size={24}
                     color={tintColor}
-                    />
+                />
             )
         }    
     },
-    Reservation :{
-        screen:ReservationNavigator,
-        navigationOptions:{
-            title:'Reserve Table',
-            drawerLabel:'Reserve Tabel',
-            drawerIcon:({ tintColor,focused }) =>(
-                <Icon 
+    Favorites: {
+        screen: FavoritesNavigator,
+        navigationOptions: {
+            title: 'My Favorites',
+            drawerLabel: 'My Favorites',
+            drawerIcon: ({ tintColor }) => (
+                <Icon
+                    name='heart'
+                    type='font-awesome'
+                    size={24}
+                    color={tintColor}
+                />
+            )
+
+        }    
+    },
+    Reservation: {
+        screen: ReservationNavigator,
+        navigationOptions: {
+            title: 'Reserve Table',
+            drawerLabel: 'Reserve Table',
+            drawerIcon: ({ tintColor }) => (
+                <Icon
                     name='cutlery'
                     type='font-awesome'
                     size={24}
-                    iconStyle={{color:tintColor}}/>
+                    color={tintColor}
+                />
             )
-        }
+
+        }    
     },
-},{
+}, {
     drawerBackgroundColor: '#D1C4E9',
     contentComponent: CustomDrawerContentComponent,
 })
