@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, FlatList, Modal, Button } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, FlatList, Modal, Button,Alert,PanResponder } from 'react-native';
 import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
 import { postComment, postFavorite } from '../redux/ActionCreators';
-
+import * as Animatable from 'react-native-animatable';
 const mapStateToProps = state => {
     return {
         dishes: state.dishes,
@@ -24,8 +24,40 @@ function RenderDish({
     markFavorite,
     openCommentForm,
 }) {
+
+    cons recognizeDrag - ({moveX,moveY,dx,dy})=>{
+        if(dx<-200)
+        return true; //right to left
+        return false;
+    };
+    const PanResponder = PanResponder.create({
+        onStartShouldSetPanResponder:(e,gestureState)=>{
+            return true;
+        },
+        onPanResponderEnd:(e,gestureState)=>{
+            if(recognizeDrag)(gestureState)
+            Alert.alert(
+                'Add to Favorites? ',
+                'Are you sure you wish to add' +dish.name + 'to your favoriteSzz?',
+                [{
+                    text:'Cancel',
+                    onPress:()=>console.log('Cancel button pressed'),
+                    style:'cancel',
+                },
+                {
+                    text:'OK',
+                    onPress:()=>favorite?console.log('Already favorited'):markFavorite(),
+                },
+            ],
+            {cancelable:false}
+            )
+            return true;
+        },
+    });
+
     if (dish != null) {
         return(
+            <Animatable.View animation="fadeInDown" duration={2000} {...PanResponder.panHandlers}>
             <Card
                 featuredTitle={dish.name}
                 image={ {uri: baseUrl + dish.image}}
@@ -52,6 +84,7 @@ function RenderDish({
                     />
                 </View>
             </Card>
+            </Animatable.View>
         );
     }
     else {
@@ -73,6 +106,7 @@ function RenderComments({comments}) {
     
     if (comments != null) {
         return(
+        <Animatable.View animation="fadeInUp" duration={2000}>
             <Card title="Comments" >
                 <FlatList
                     data={comments}
@@ -80,6 +114,7 @@ function RenderComments({comments}) {
                     keyExtractor={item => item.id.toString()}
                 />
             </Card>
+            </Animatable.View>
         );
     }
     else {

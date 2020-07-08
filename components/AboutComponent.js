@@ -76,12 +76,15 @@ class About extends Component{
 
         return(
             <ScrollView>
+                <Animatable.View animation="fadeInDown" duration={2000}>
+
                 <History />
                 <CorporateLeadership 
                     leaders={this.props.leaders.leaders} 
                     isLoading={this.props.leaders.isLoading}
                     errMess={this.props.leaders.errMess}
                     />
+                    </Animatable.View>
             </ScrollView>
         );
     };
